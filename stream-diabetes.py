@@ -3,12 +3,12 @@ import streamlit as st
 
 diabetes_model = pickle.load(open('diabetes_model.sav', 'rb'))
 
-st.title('Data Mining Prediction Diabetes')
+st.title('Prediction Diabetes')
 
 col1, col2 = st.columns(2)
 
 with col1 :
-	Age = st.text_input ('input umur')
+	Age = st.text_input ('input Umur')
 
 with col2 :
 	Gender = st.text_input ('input Gender')
@@ -61,8 +61,8 @@ if st.button('Test Prediction Diabetes'):
 	diab_prediction = diabetes_model.predict([[Age, Gender, Polyuria, Polydipsia, Suddenweightloss, Weakness, Polyphagia, Genitalthrush, Visualblurring, Itching, Irritability, Delayedhealing, Partialparesis, Musclestiffness, Alopecia, Obesity]])
 
 	if(diab_prediction[0] == 1):
-		diab_diagnosis = 'Pasien terkena Diabetes'
+		diab_diagnosis = 'Pasien Positive Diabetes'
 	else :
-		diab_diagnosis = 'Pasien tidak terkena Diabetes'
+		diab_diagnosis = 'Pasien Negative Diabetes'
 
 	st.success(diab_diagnosis)
