@@ -61,8 +61,8 @@ if st.button('Test Prediction Diabetes'):
 	diab_prediction = diabetes_model.predict([[Age, Gender, Polyuria, Polydipsia, Suddenweightloss, Weakness, Polyphagia, Genitalthrush, Visualblurring, Itching, Irritability, Delayedhealing, Partialparesis, Musclestiffness, Alopecia, Obesity]])
 
 	if(diab_prediction[0] == 1):
-		diab_diagnosis = 'Pasien Negative Diabetes'
-	else :
 		diab_diagnosis = 'Pasien Positive Diabetes'
+	else :
+		diab_diagnosis = 'Pasien Negative Diabetes'
 
 	st.success(diab_diagnosis)
