@@ -1,100 +1,68 @@
 import pickle
 import streamlit as st
-import numpy as np
 
-# Load model
 diabetes_model = pickle.load(open('diabetes_model.sav', 'rb'))
 
-st.title('Prediction Diabetes')
+st.title('Data Mining Prediction Diabetes')
 
-# Input data
 col1, col2 = st.columns(2)
 
-with col1:
-    Age = st.number_input('Input Umur', min_value=0, max_value=120, step=1)
+with col1 :
+	Age = st.text_input ('input umur')
 
-with col2:
-    Gender = st.selectbox('Input Gender', ['Male', 'Female'])
+with col2 :
+	Gender = st.text_input ('input Gender')
 
-with col1:
-    Polyuria = st.selectbox('Input Polyuria', ['Yes', 'No'])
+with col1 :
+	Polyuria = st.text_input ('input Polyuria')
 
-with col2:
-    Polydipsia = st.selectbox('Input Polydipsia', ['Yes', 'No'])
+with col2 :
+	Polydipsia = st.text_input ('input Polydipsia')
 
-with col1:
-    Suddenweightloss = st.selectbox('Input Sudden Weight Loss', ['Yes', 'No'])
+with col1 :
+	Suddenweightloss = st.text_input ('input sudden weight loss')
 
-with col2:
-    Weakness = st.selectbox('Input Weakness', ['Yes', 'No'])
+with col2 :
+	Weakness = st.text_input ('input weaknes')
 
-with col1:
-    Polyphagia = st.selectbox('Input Polyphagia', ['Yes', 'No'])
+with col1 :
+	Polyphagia = st.text_input ('input Polyphagia')
 
-with col2:
-    Genitalthrush = st.selectbox('Input Genital Thrush', ['Yes', 'No'])
+with col2 :
+	Genitalthrush = st.text_input ('input Genital thrush')
 
-with col1:
-    Visualblurring = st.selectbox('Input Visual Blurring', ['Yes', 'No'])
+with col1 :
+	Visualblurring = st.text_input ('input visual blurring')
 
-with col2:
-    Itching = st.selectbox('Input Itching', ['Yes', 'No'])
+with col2 :
+	Itching = st.text_input ('input Itching')
 
-with col1:
-    Irritability = st.selectbox('Input Irritability', ['Yes', 'No'])
+with col1 :
+	Irritability = st.text_input ('input Irritability')
 
-with col2:
-    Delayedhealing = st.selectbox('Input Delayed Healing', ['Yes', 'No'])
+with col2 :
+	Delayedhealing = st.text_input ('input delay healing')
 
-with col1:
-    Partialparesis = st.selectbox('Input Partial Paresis', ['Yes', 'No'])
+with col1 :
+	Partialparesis = st.text_input ('input partial paresis')
 
-with col2:
-    Musclestiffness = st.selectbox('Input Muscle Stiffness', ['Yes', 'No'])
+with col2 :
+	Musclestiffness = st.text_input ('input muscle stiffness')
 
-with col1:
-    Alopecia = st.selectbox('Input Alopecia', ['Yes', 'No'])
-
-with col2:
-    Obesity = st.selectbox('Input Obesity', ['Yes', 'No'])
-
-# Convert input to numerical values
-Gender = 1 if Gender == 'Male' else 0
-Polyuria = 1 if Polyuria == 'Yes' else 0
-Polydipsia = 1 if Polydipsia == 'Yes' else 0
-Suddenweightloss = 1 if Suddenweightloss == 'Yes' else 0
-Weakness = 1 if Weakness == 'Yes' else 0
-Polyphagia = 1 if Polyphagia == 'Yes' else 0
-Genitalthrush = 1 if Genitalthrush == 'Yes' else 0
-Visualblurring = 1 if Visualblurring == 'Yes' else 0
-Itching = 1 if Itching == 'Yes' else 0
-Irritability = 1 if Irritability == 'Yes' else 0
-Delayedhealing = 1 if Delayedhealing == 'Yes' else 0
-Partialparesis = 1 if Partialparesis == 'Yes' else 0
-Musclestiffness = 1 if Musclestiffness == 'Yes' else 0
-Alopecia = 1 if Alopecia == 'Yes' else 0
-Obesity = 1 if Obesity == 'Yes' else 0
+with col1 :
+	Alopecia = st.text_input ('input Alopecia')
+	
+with col2 :
+	Obesity = st.text_input ('input Obesity')
 
 diab_diagnosis = ''
 
 if st.button('Test Prediction Diabetes'):
-    input_data = np.array([Age, Gender, Polyuria, Polydipsia, Suddenweightloss, Weakness, Polyphagia, Genitalthrush, Visualblurring, Itching, Irritability, Delayedhealing, Partialparesis, Musclestiffness, Alopecia, Obesity]).reshape(1, -1)
-    
-    # Display input data for debugging
-    st.write("Input data:", input_data)
-    
-    # Verify that the model is loaded correctly
-    st.write("Model type:", type(diabetes_model))
+	diab_prediction = diabetes_model.predict([[Age, Gender, Polyuria, Polydipsia, Suddenweightloss, Weakness, Polyphagia, Genitalthrush, Visualblurring, Itching, Irritability, Delayedhealing, Partialparesis, Musclestiffness, Alopecia, Obesity]])
 
-    # Make prediction
-    diab_prediction = diabetes_model.predict(input_data)
+	if(diab_prediction[0] == 1):
+		diab_diagnosis = 'Pasien terkena Diabetes'
+	else :
+		diab_diagnosis = 'Pasien tidak terkena Diabetes'
 
-    # Display prediction for debugging
-    st.write("Prediction:", diab_prediction)
-    
-    if diab_prediction[0] == 1:
-        diab_diagnosis = 'Pasien terkena Diabetes'
-    else:
-        diab_diagnosis = 'Pasien tidak terkena Diabetes'
-
-    st.success(diab_diagnosis)
+	st.success(diab_diagnosis)
