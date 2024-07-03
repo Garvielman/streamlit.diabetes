@@ -1,5 +1,6 @@
 import pickle
 import streamlit as st
+import numpy as np
 
 # Load model
 diabetes_model = pickle.load(open('diabetes_model.sav', 'rb'))
@@ -77,14 +78,20 @@ Obesity = 1 if Obesity == 'Yes' else 0
 diab_diagnosis = ''
 
 if st.button('Test Prediction Diabetes'):
-    input_data = [Age, Gender, Polyuria, Polydipsia, Suddenweightloss, Weakness, Polyphagia, Genitalthrush, Visualblurring, Itching, Irritability, Delayedhealing, Partialparesis, Musclestiffness, Alopecia, Obesity]
+    input_data = np.array([Age, Gender, Polyuria, Polydipsia, Suddenweightloss, Weakness, Polyphagia, Genitalthrush, Visualblurring, Itching, Irritability, Delayedhealing, Partialparesis, Musclestiffness, Alopecia, Obesity]).reshape(1, -1)
     
     # Display input data for debugging
     st.write("Input data:", input_data)
     
-    # Reshape the input data to match the model's expected input format
-    diab_prediction = diabetes_model.predict([input_data])
+    # Verify that the model is loaded correctly
+    st.write("Model type:", type(diabetes_model))
 
+    # Make prediction
+    diab_prediction = diabetes_model.predict(input_data)
+
+    # Display prediction for debugging
+    st.write("Prediction:", diab_prediction)
+    
     if diab_prediction[0] == 1:
         diab_diagnosis = 'Pasien terkena Diabetes'
     else:
