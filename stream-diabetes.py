@@ -79,6 +79,9 @@ diab_diagnosis = ''
 if st.button('Test Prediction Diabetes'):
     input_data = [Age, Gender, Polyuria, Polydipsia, Suddenweightloss, Weakness, Polyphagia, Genitalthrush, Visualblurring, Itching, Irritability, Delayedhealing, Partialparesis, Musclestiffness, Alopecia, Obesity]
     
+    # Display input data for debugging
+    st.write("Input data:", input_data)
+    
     # Reshape the input data to match the model's expected input format
     diab_prediction = diabetes_model.predict([input_data])
 
